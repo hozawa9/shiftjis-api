@@ -1,2 +1,2 @@
 # このアプリの目的
-リクエストボディのtextをShift_JIS形式に変換する。
+リクエストボディのbinary型のinputをShift_JISエンコーディングにてcsvに変換する。

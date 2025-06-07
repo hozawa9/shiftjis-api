@@ -6,7 +6,20 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.21.2",
     "iconv-lite": "^0.6.3"
-  }
+  },
+  "description": "リクエストボディのtextをShift_JIS形式に変換する。",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hozawa9/shiftjis-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hozawa9/shiftjis-api/issues"
+  },
+  "homepage": "https://github.com/hozawa9/shiftjis-api#readme"
 }
