@@ -1,22 +1,27 @@
 const express = require('express');
 const iconv = require('iconv-lite');
-
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-app.use(express.text({ type: '*/*', limit: '1mb' }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/encode', (req, res) => {
-  const utf8Text = req.body;
-  const sjisBuffer = iconv.encode(utf8Text, 'shift_jis');
-  res.setHeader('Content-Type', 'text/csv; charset=Shift_JIS');
-  res.send(sjisBuffer);
+  const text = req.body.text;
+
+  if (!text) {
+    return res.status(400).send('Missing "text" in request body.');
+  }
+
+  try {
+    const encoded = iconv.encode(text, 'Shift_JIS');
+    res.set('Content-Type', 'application/octet-stream');
+    res.send(encoded);
+  } catch (err) {
+    res.status(500).send('Encoding error: ' + err.message);
+  }
 });
 
-app.get('/', (req, res) => {
-  res.send('Shift_JIS encoder is running!');
-});
-
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Shift_JIS encoder API listening at http://localhost:${port}`);
 });
